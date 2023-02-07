@@ -1,0 +1,41 @@
+{% extends "admin_pages/admin_base.html" %}
+{%load humanize%}
+{% block title %}All Order{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>All Orders</h1><hr>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>SN</th>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Order On</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for order in allorders %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td> <a href="{% url 'Dolly_Sabby_app:adminorderdetail' order.id %}"> #ORDER_{{order.id}} </a></td>
+            <td>{{order.ordered_by}}</td>
+            <td>{{order.created_at}}</td>
+            <td>R{{order.total}}</td>
+            <td>{{order.order_status}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

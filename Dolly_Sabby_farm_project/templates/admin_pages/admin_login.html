@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{%load static%}
+<html>
+<head>
+<title>Dolly &amp; Sabby Paultry Farm</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static "css/css1.css" %}">
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+   <link rel="stylesheet" href="{% static "css/fonts.css" %}">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGRAYqLRwfYkcVyDG3iUWKNsrQhD6GzV5JEQFmWnJv" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+  body, html {
+    height: 100%;
+    line-height: 1.8;
+  }
+
+  /* Full height image header */
+  .bgimg-1 {
+    background-position: center;
+    background-size: cover;
+    /* background-image: url("{% static "img/800.jpeg"%}"); */
+    /* min-height: 100%; */
+   min-width: 100%;
+
+
+  }
+
+  .w3-bar .w3-button {
+    padding: 16px;
+  }
+
+  .w3-bar{
+
+  font-size: 20px;
+
+  }
+
+  .w3-right{
+
+    font-size: 20px;
+  }
+
+
+  .container{
+
+  max-width:1300px;
+  margin: auto;
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  margin: auto;
+  padding-left:25px;
+  padding-right:25px;
+
+  }
+
+  .row{
+  /* display:flex; */
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+
+  }
+
+
+
+  .btn{
+  display: inline-block;
+  background: teal;
+  color: #fff;
+  padding: 4px 15px;
+  margin: 5px;
+  /* padding: 8px 30px; */
+  border-radius:30px;
+  cursor: pointer;
+  font-size: 17px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+
+  }
+
+
+  <!-- table{
+  width: 100%;
+  border-collapse: collapse;
+  } -->
+
+  th{
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  background: teal;
+  font-weight: normal;
+  }
+
+  td{
+
+    text-align: center;
+  }
+  .text-right{
+    text-align: right;
+    background: teal;
+    /* color: black; */
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .text{
+
+    background: teal;
+    font-weight: bold;
+      font-size: 20px;
+    /* color: black; */
+  }
+
+.errorlist{
+  color: red;
+}
+
+</style>
+</head>
+<body>
+
+  <!-- <div class="navbar">
+    <div class="logo">
+      <img src="{% static "img/logo.png"%}" width="150px" alt="">
+    </div>
+  </div> -->
+
+
+  <!-- Navbar (sit on top) -->
+  <div class="w3-top">
+    <div class="w3-bar w3-teal w3-card" id="myNavbar">
+
+      <!-- <a href="#home" class="w3-bar-item w3-button w3-wide"><img src="{% static "img/logo.png"%}" width="150px" alt=""></a> -->
+      <a href="{% url 'Dolly_Sabby_app:index' %}" class="w3-bar-item w3-button w3-wide">HOME</a>
+
+      <!-- Right-sided navbar links -->
+      <div class="w3-right w3-hide-small">
+
+        <a href="{% url 'Dolly_Sabby_app:product' %}" class="w3-bar-item w3-button">PRODUCT</a>
+        <a href="{% url 'Dolly_Sabby_app:my_cart' %}" class="w3-bar-item w3-button"> <i class="fa fa-shopping-cart"></i></a>
+
+      </div>
+      <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+  </div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <hr>
+  <div class="row">
+    <div class="col-4">
+      <h3>Admin Login Form</h3><hr>
+      <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary">Login as a Admin</button>
+        {% if error %}
+          <li style="color: red">{{error}}</li>
+        {% endif %}
+      </form>
+
+      </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>

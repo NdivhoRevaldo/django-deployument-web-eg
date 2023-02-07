@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+{%load static%}
+<html>
+<head>
+<title>Dolly &amp; Sabby Paultry Farm</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static "css/css1.css" %}">
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+   <link rel="stylesheet" href="{% static "css/style.css" %}">
+   <link rel="stylesheet" href="{% static "css/fonts.css" %}">
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGRAYqLRwfYkcVyDG3iUWKNsrQhD6GzV5JEQFmWnJvLPMO" crossorigin="anonymous">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGRAUWErUbiGz1nFJtM8RTb4vKuojKBpggDBP/vI1Bx" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  /* background-image: url("{% static "img/800.jpeg"%}"); */
+  min-height: 100%;
+ min-width: 100%;
+
+
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+.w3-bar{
+
+font-size: 20px;
+
+}
+
+.w3-right{
+
+  font-size: 20px;
+}
+
+marquee{
+
+font-size: 90px;
+font-style: italic;
+background-color: teal;
+/* padding-top: 50px; */
+
+}
+
+.w3-card img{
+
+  width: 200px;
+  height: 420px;
+
+}
+
+.l3 img{
+
+width: 420px;
+height: 300px;
+
+}
+
+
+/* DROP DOWN MENU */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  color: white;
+  padding:  16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+  background-color: lightgrey;
+
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: teal;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+/* DROP DOWN MENU */
+
+</style>
+</head>
+<body>
+
+
+      <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+          <div class="w3-bar w3-teal w3-card" id="myNavbar">
+            <a href="{% url 'Dolly_Sabby_app:index' %}" class="w3-bar-item w3-button w3-wide">HOME</a>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small">
+              <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+              <a href="#work" class="w3-bar-item w3-button">OUR WORK</a>
+              <a href="{% url 'Dolly_Sabby_app:product' %}" class="w3-bar-item w3-button">PRODUCT</a>
+              <a href="{% url 'Dolly_Sabby_app:index2' %}" class="w3-bar-item w3-button">TRAINEE</a>
+              <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT US</a>
+              <a href="{% url 'admin:index' %}" class="w3-bar-item w3-button">ADMIN</a>
+              <a href="{% url 'Dolly_Sabby_app:my_cart' %}" class="w3-bar-item w3-button"> <i class="fa fa-shopping-cart"></i></a>
+              <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">MY ACCOUNT {{request.user.username}}
+                  <i class="fa fa-caret-down"></i></button>
+                  <div class="dropdown-content" id="myDropdown">
+                    {% if request.user.customer %}
+                    <a href="{% url 'Dolly_Sabby_app:profile' %}" class="w3-bar-item w3-button">MY PROFILE</a>
+                    <a href="{% url 'Dolly_Sabby_app:logout' %}" class="w3-bar-item w3-button">LOGOUT</a>
+                    {% else %}
+                    <a href="{% url 'Dolly_Sabby_app:register' %}" class="w3-bar-item w3-button">REGISTER</a>
+                    <a href="{% url 'Dolly_Sabby_app:login' %}" class="w3-bar-item w3-button">LOGIN</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+          <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+          <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+        </div>
+      </div>
+      <!-- Sidebar on small screens when clicking the menu icon -->
+        <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+          <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+          <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
+          <a href="#work" class="w3-bar-item w3-button">OUR WORK</a>
+          <a href="{% url 'Dolly_Sabby_app:product' %}" class="w3-bar-item w3-button">PRODUCT</a>
+          <a href="{% url 'Dolly_Sabby_app:index2' %}" class="w3-bar-item w3-button">TRAINEE</a>
+          <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT US</a>
+          <a href="{% url 'admin:index' %}" onclick="w3_close()" class="w3-bar-item w3-button">ADMIN</a>
+          <a href="{% url 'Dolly_Sabby_app:my_cart' %}" class="w3-bar-item w3-button"> <i class="fa fa-shopping-cart"></i></a>
+
+              {% if request.user.customer %}
+              {{request.user.username}}
+              <a href="{% url 'Dolly_Sabby_app:profile' %}" class="w3-bar-item w3-button">MY PROFILE</a>
+              <a href="{% url 'Dolly_Sabby_app:logout' %}" class="w3-bar-item w3-button">LOGOUT</a>
+              {% else %}
+              <a href="{% url 'Dolly_Sabby_app:register' %}" class="w3-bar-item w3-button">REGISTER</a>
+              <a href="{% url 'Dolly_Sabby_app:login' %}" class="w3-bar-item w3-button">LOGIN</a>
+              {% endif %}
+
+        </nav>
+
+
+
+
+
+<!-- Header with full-height image -->
+<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+
+
+
+  <video width="1910" autoplay muted loop>
+  <source src="{% static "vids/motion-array.mp4"%}" type="video/mp4">
+</video>
+
+  <div class="w3-display-left w3-text-white" style="padding:48px">
+
+    <span class="w3-jumbo w3-hide-small"><a href="#default" class="logo"> <img src="{% static "img/logo.png"%}" alt="John"><br></span><br>
+    {% comment %} <span class="w3-jumbo w3-hide-small">Dolly &amp; Sabby Paultry Farm</span><br> {% endcomment %}
+    <span class="w3-xxlarge w3-hide-large w3-hide-medium">Dolly &amp; Sabby Paultry Farm</span><br>
+    <span class="w3-large">suppliers of healthy &amp; quality chickens.</span>
+    <p><a href="#about" class="w3-button w3-black w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more about us</a></p><br>
+
+
+
+  </div>
+  <div class="w3-bar w3-teal w3-bottom w3-center">
+
+  <marquee direction="left" behavior="alternate"align="center"> BETTER CHICKENS ----- BETTER DIET </marquee>
+  </div>
+
+
+</header>
+
+<!-- About Section -->
+<div class="w3-container" style="padding:128px 16px" id="about">
+  <h3 class="w3-center">ABOUT THE COMPANY</h3>
+    <p  class="w3-center w3-large"> Dolly &amp; Sabby Paultry Farm is one of the largest integrated poultry producers in South Africa and our core purpose is to maintain a unique position that allows us to reshape how we remain part of ‘The Great South African Family’ while growing the business portfolio. As we continue to grow, we’re embracing our responsibility to drive positive change, solve problems, and make society a little better every day</p>
+
+  <div class="w3-row-padding w3-center" style="margin-top:64px">
+
+
+       <div class="w3-center">
+      <i class="fa fa-desktop w3-margin-bottom w3-jumbo w3-center"></i>
+      <p class="w3-large">Technoloically Advanced <br>Breeding systems </p>
+      <p>We grow our business by delivering superior value products to consumers and communities..</p>
+    </div>
+
+    <div class="w3-center">
+      <i class="fa fa-heart w3-margin-bottom w3-jumbo w3-center"></i>
+      <p class="w3-large">Passion &amp; Love </p>
+      <p>Our Chickens are cared for and fed with suitable feeds for healthy growth.</p>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Promo Section - "We know design" -->
+<div class="w3-container w3-light-grey" style="padding:128px 16px">
+  <div class="w3-row-padding">
+    <div class="w3-col m6">
+      <h3>Know Paultry /farming.</h3>
+      <p>We have over 75 years of experience in the industry, delivering healthy and quality chickens.<br> We nurture our business for growth and returns through commercial, operational and financial excellence. <br> We sustain our business and our communities for future generations.</p>
+      <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th"> </i> View Our Works</a></p>
+    </div>
+    <div class="w3-col m6">
+      <img class="w3-image w3-round-large" src="{% static "img/800.jpeg"%}" alt="Buildings" width="700" height="394">
+    </div>
+  </div>
+</div>
+
+<!-- Team Section -->
+<div class="w3-container" style="padding:128px 16px" id="team">
+  <h3 class="w3-center">THE TEAM</h3>
+  <p class="w3-center w3-large">The ones who runs this company</p>
+  <div class="w3-row-padding " style="margin-top:64px">
+
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <img src="{% static "img/4301.jpg"%}" alt="John" style="width:100%">
+        <div class="w3-container">
+          <h3>Dolly</h3>
+          <p class="w3-opacity">CEO &amp; Founder</p>
+          <p></p>
+          <p><button class="w3-button w3-light-grey w3-block"><i class="fa fa-envelope"></i> Contact</button></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <img src="{% static "img/Mouctar-3.jpg"%}"  alt="Jane" style="width:100%">
+        <div class="w3-container">
+          <h3>Sabby</h3>
+          <p class="w3-opacity">Farm Director</p>
+          <p></p>
+          <p><button class="w3-button w3-light-grey w3-block"><i class="fa fa-envelope"></i> Contact</button></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <img src="{% static "img/cust.jpg"%}" alt="Mike" style="width:100%">
+        <div class="w3-container">
+          <h3> sarah </h3>
+          <p class="w3-opacity">Customer relations</p>
+          <p></p>
+          <p><button class="w3-button w3-light-grey w3-block"><i class="fa fa-envelope"></i> Contact</button></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <img src="{% static "img/397482-1200x624.jpg"%}" alt="Dan" style="width:100%">
+        <div class="w3-container">
+          <h3>Happines</h3>
+          <p class="w3-opacity">Farm manager</p>
+          <p></p>
+          <p><button class="w3-button w3-light-grey w3-block"><i class="fa fa-envelope"></i> Contact</button></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Promo Section "Statistics" -->
+<div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
+  <div class="w3-quarter">
+    <span class="w3-xxlarge">14+</span>
+    <br>Partners
+  </div>
+  <div class="w3-quarter">
+    <span class="w3-xxlarge">55+</span>
+    <br>Projects Done
+  </div>
+  <div class="w3-quarter">
+    <span class="w3-xxlarge">89+</span>
+    <br>Happy Clients
+  </div>
+  <div class="w3-quarter">
+    <span class="w3-xxlarge">150+</span>
+    <br>Meetings
+  </div>
+</div>
+
+<!-- Work Section -->
+<div class="w3-container" style="padding:128px 16px" id="work">
+  <h3 class="w3-center">OUR WORK</h3>
+  <p class="w3-center w3-large">What we do and provide</p>
+
+  <div class="w3-row-padding" style="margin-top:64px">
+    <div class="w3-col l3 m6">
+      <img src="{% static "img/cages.jpeg"%}"  onclick="onClick(this)" class="w3-hover-opacity" alt="cages">
+    </div>
+
+    <div class="w3-col l3 m6">
+      <img src="{% static "img/how-to-start-farming-with-chickens.jpeg"%}"  onclick="onClick(this)" class="w3-hover-opacity" alt="Chickens">
+    </div>
+
+    <div class="w3-col l3 m6">
+      <img src="{% static "img/raw-chicken-body-raw-chicken-body-isolated-white-background-144075197.jpeg"%}"  onclick="onClick(this)" class="w3-hover-opacity" alt="chicken body">
+    </div>
+
+    <div class="w3-col l3 m6">
+      <img src="{% static "img/chicken-feet-25139986.jpeg"%}"  onclick="onClick(this)" class="w3-hover-opacity" alt="Chicken feet">
+    </div>
+
+    <div class="w3-col l3 m6">
+      <video src="{% static "vids/motion-array.mp4"%}" width="420" height="340" controls autoplay muted>
+      </video>
+    </div>
+
+    <div class="w3-col l3 m6">
+      <video src="{% static "vids/motion-array.mp4"%}" width="420" height="340" controls autoplay muted>
+      </video>
+    </div>
+
+    <div class="w3-col l3 m6">
+      <video src="{% static "vids/motion-array.mp4"%}" width="420" height="340" controls autoplay muted>
+      </video>
+    </div>
+
+    <div class="w3-col l3 m6">
+      <video src="{% static "vids/motion-array.mp4"%}" width="420" height="340" controls autoplay muted>
+      </video>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+  <span class="w3-button w3-xxlarge w3-black w3-padding-large w3-display-topright" title="Close Modal Image">×</span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+
+
+
+<!-- Contact Section -->
+<div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact">
+  <h3 class="w3-center">CONTACT</h3>
+  <p class="w3-center w3-large">Lets get in touch. Send us a message:</p>
+  <div style="margin-top:48px">
+    <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> Shoshanguve, South Africa</p>
+    <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Phone: +27 12 819 4520</p>
+    <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Email: dollysabby@gmail.com</p>
+    <br>
+    <form action="/action_page.php" target="_blank">
+      <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Subject" required name="Subject"></p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p>
+      <p>
+        <button class="w3-button w3-black" type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </p>
+    </form>
+
+
+
+      <p>Our Location </p>
+    <!-- Image of location/map -->
+   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115238.2141485332!2d28.019082250680707!3d-25.49856932116892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ebfcf579d591aab%3A0xdb66acef5c44f117!2sSoshanguve!5e0!3m2!1sen!2sza!4v1658058422426!5m2!1sen!2sza" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>
+
+<!-- Footer -->
+
+<footer class="footer">
+   <div class="container">
+       <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+    <div class="row">
+      <div class="footer-col">
+        <h4>company</h4>
+        <ul>
+          <li><a href="#about">about us</a></li>
+          <li><a href="#work">our work</a></li>
+          <li><a href="#contact">contact us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>online shop</h4>
+        <ul>
+          <li><a href="{% url 'Dolly_Sabby_app:product' %}">product</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>follow us</h4>
+        <div class="social-links">
+          <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+          <a href="https://za.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.snapchat.com/"><i class="fab fa-snapchat"></i></a>
+          <a href="https://za.pinterest.com/"><i class="fab fa-pinterest-p"></i></a>
+
+        </div>
+      </div>
+    </div>
+   </div>
+</footer>
+
+
+
+{% comment %}
+<footer class="w3-center w3-black w3-padding-64">
+  <a href="#home" class="w3-button w3-light-grey "><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-xlarge w3-section">
+    <a href="https://www.facebook.com/" class="w3-button w3-light-grey "><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+    <a href="https://www.instagram.com/" class="w3-button w3-light-grey"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+    <a href="https://www.snapchat.com/" class="w3-button w3-light-grey"><i class="fa fa-snapchat w3-hover-opacity"></i></a>
+    <a href="https://za.pinterest.com/" class="w3-button w3-light-grey"><i class="fa fa-pinterest-p w3-hover-opacity"></i></a>
+    <a href="https://twitter.com/" class="w3-button w3-light-grey"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+    <a href="https://za.linkedin.com/" class="w3-button w3-light-grey"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+  </div>
+</footer> {% endcomment %}
+
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+}
+</script>
+
+
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+</script>
+
+  {% comment %} {% block body_block %}
+  {% endblock  %} {% endcomment %}
+
+</body>
+</html>

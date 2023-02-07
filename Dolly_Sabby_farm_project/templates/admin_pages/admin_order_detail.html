@@ -1,0 +1,60 @@
+{% extends "admin_pages/admin_base.html" %}
+{%load humanize%}
+{% block title %}Order Details{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+
+      <h1>Order Details</h1><hr>
+      <p> <span >Order ID : </span> #ORDER_{{ord_obj.id}} </p>
+      <p> <span >Order Status : </span> {{ord_obj.order_status}} </p>
+      <p> <span >Order On : </span> {{ord_obj.created_at}}({{ord_obj.created_at|timesince}} ago) </p>
+      <p> <span >Customer Information : </span> By {{ord_obj.ordered_by}}, {{ord_obj.mobile}}, {{ord_obj.email}}</p>
+      <p> <span >Shipping Address : </span> {{ord_obj.shipping_address}}</p><hr>
+      <h1>Ordered Items</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>SN</th>
+            <th>Items</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cp in ord_obj.cart.cartproduct_set.all %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td> <a target="_blank" href="{% url 'Dolly_Sabby_app:product_details' cp.product.slug %}"> {{cp.product.title}} ({{cp.product.id}})</a></td>
+            <td>R{{cp.rate}}</td>
+            <td>{{cp.quantity}}</td>
+            <td>R{{cp.subtotal}}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <th colspan="4" class="text-right">Total :</th>
+            <th class="text">R{{ord_obj.total|intcomma}}/-</th>
+          </tr>
+        </tbody>
+      </table>
+
+      <form  action="{% url 'Dolly_Sabby_app:adminorderstatuschange' ord_obj.id %}" method="POST">
+          {% csrf_token %}
+          <select  name="Status">
+            {% for i,j in allstatus %}
+            <option value="{{i}}"  {% if i == order_obj.order_status %}selected{% endif %}>{{j}}</option>
+            {% endfor %}
+
+          </select>
+          <button class="btn btn-info">change</button>
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
